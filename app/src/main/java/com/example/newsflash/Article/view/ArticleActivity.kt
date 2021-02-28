@@ -47,7 +47,7 @@ class ArticleActivity : AppCompatActivity() {
         comments()
         likes()
         setWebView(articleUrl)
-        binding.progressBar.visibility = View.GONE
+        binding.progressBar.visibility = View.VISIBLE
 
 
 
@@ -60,8 +60,8 @@ class ArticleActivity : AppCompatActivity() {
         settings.setSupportZoom(true)
         settings.builtInZoomControls = true
         binding.articleWebview.webChromeClient = WebChromeClient()
-        binding.articleWebview.settings.domStorageEnabled = true;
         binding.articleWebview.loadUrl(articleUrl)
+        binding.progressBar.visibility = View.GONE
     }
 
     private fun comments() {
