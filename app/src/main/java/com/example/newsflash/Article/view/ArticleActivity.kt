@@ -1,21 +1,25 @@
 package com.example.newsflash.Article.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.webkit.WebChromeClient
 import android.webkit.WebSettings
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil.setContentView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.newsflash.ApiResponse
-import com.example.newsflash.NewsList.data.State
 import com.example.newsflash.Article.data.CommentResponse
 import com.example.newsflash.Article.data.LikesResponse
-import com.example.newsflash.databinding.ActivityArticleBinding
 import com.example.newsflash.Article.viewModel.CommentsViewModel
 import com.example.newsflash.Article.viewModel.LikesViewModel
+import com.example.newsflash.Constants
+import com.example.newsflash.NewsList.data.State
 import com.example.newsflash.PreferenceHelper
 import com.example.newsflash.R
+import com.example.newsflash.databinding.ActivityArticleBinding
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.gson.Gson
 import com.google.gson.JsonElement
@@ -37,13 +41,15 @@ class ArticleActivity : AppCompatActivity() {
         val toolbar: MaterialToolbar = binding.toolbar.toolbar
         setSupportActionBar(toolbar)
 
-        val articleUrl: String = intent.getStringExtra("ARTICLE URL")!!
-        articleId = PreferenceHelper(this).getString("ARTICLE ID")!!
+        val articleUrl: String = intent.getStringExtra(Constants.KEY_URL)!!
+        articleId = PreferenceHelper(this).getString(Constants.KEY_ID)!!
 
         comments()
         likes()
         setWebView(articleUrl)
         binding.progressBar.visibility = View.GONE
+
+
 
 
     }
@@ -53,6 +59,8 @@ class ArticleActivity : AppCompatActivity() {
         settings.javaScriptEnabled = true
         settings.setSupportZoom(true)
         settings.builtInZoomControls = true
+        binding.articleWebview.webChromeClient = WebChromeClient()
+        binding.articleWebview.settings.domStorageEnabled = true;
         binding.articleWebview.loadUrl(articleUrl)
     }
 
@@ -80,16 +88,37 @@ class ArticleActivity : AppCompatActivity() {
   * */
     private fun consumeCommentResponse(apiResponse: ApiResponse) {
         when (apiResponse.status) {
+            State.LOADING -> {
+                Log.d("TAG", "Loading")
+            }
+
             State.DONE -> {
                 renderCommentResponse(apiResponse.data)
+            }
+
+            State.ERROR -> {
+                Toast.makeText(
+                    this, resources.getString(R.string.error_toast_text),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
 
     private fun consumeLikeResponse(apiResponse: ApiResponse) {
         when (apiResponse.status) {
+            State.LOADING -> {
+                Log.d("TAG", "Loading")
+            }
             State.DONE -> {
                 renderLikeResponse(apiResponse.data)
+            }
+
+            State.ERROR -> {
+                Toast.makeText(
+                    this, resources.getString(R.string.error_toast_text),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
@@ -111,6 +140,10 @@ class ArticleActivity : AppCompatActivity() {
             binding.toolbar.toolbarLike.text = likesResponse.likes.toString()
         }
     }
+
+
+
+
 
 }
 

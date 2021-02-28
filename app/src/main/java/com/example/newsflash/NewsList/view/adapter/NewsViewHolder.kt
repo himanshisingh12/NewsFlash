@@ -32,23 +32,18 @@ class NewsViewHolder(val binding: ItemNewsBinding) : RecyclerView.ViewHolder(bin
                     .into(binding.imgNewsBanner)
             }
 
-
-
-
             binding.cardView.setOnClickListener(View.OnClickListener {
 
                 if(!news.url.isNullOrEmpty()){
                     articleID = Utils.replace(news.url)
-                    PreferenceHelper(binding.cardView.context).putString("ARTICLE ID", articleID)
+                    PreferenceHelper(binding.cardView.context).putString(Constants.KEY_ID, articleID)
                 }
 
                 val intent = Intent(binding.cardView.context, ArticleActivity::class.java)
-                intent.putExtra("ARTICLE URL", news.url)
+                intent.putExtra(Constants.KEY_URL, news.url)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
                 binding.cardView.context.startActivity(intent)
             })
-
-
         }
     }
 

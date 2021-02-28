@@ -12,7 +12,7 @@ import retrofit2.http.*
 interface NetworkService {
 
 
-    @GET("top-headlines?country=us&category=business&apiKey=8735d49f66ad423dbcf7cb0a3838285d")
+    @GET( "top-headlines?country=us&category=business&apiKey=" + Constants.API_KEY)
     fun getNews(
             @Query("page") page: Int,
             @Query("pageSize") pageSize: Int

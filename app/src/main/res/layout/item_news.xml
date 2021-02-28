@@ -30,35 +30,31 @@
             android:id="@+id/news_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#333"
+            android:textColor="@color/black"
             android:textSize="22sp"
-            android:textStyle="bold"
-            tools:text="Sample news title" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/author_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#333"
-            android:textSize="12sp"
-            tools:text="Sample news title" />
+            android:textColor="@color/black"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/published_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#333"
-            android:textSize="12sp"
-            tools:text="Sample news title" />
+            android:textColor="@color/black"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/news_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#333"
+            android:textColor="@color/black"
             android:textSize="16sp"
-            android:layout_marginTop="10dp"
-            tools:text="Sample news title" />
+            android:layout_marginTop="10dp"/>
 
 
 

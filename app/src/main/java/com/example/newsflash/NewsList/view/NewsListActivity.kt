@@ -9,20 +9,20 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.newsflash.NewsList.view.adapter.NewsListAdapter
 import com.example.newsflash.NewsList.data.News
 import com.example.newsflash.NewsList.data.State
-import com.example.newsflash.databinding.ActivityMainBinding
 import com.example.newsflash.NewsList.viewModel.NewsListViewModel
 import com.example.newsflash.R
+import com.example.newsflash.databinding.ActivityNewsListBinding
 
 class NewsListActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityMainBinding
+    lateinit var binding: ActivityNewsListBinding
     private lateinit var viewModel: NewsListViewModel
     private lateinit var newsListAdapter: NewsListAdapter
     lateinit var news: News
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_news_list)
 
         viewModel = ViewModelProvider(this).get(NewsListViewModel::class.java)
         initAdapter()
